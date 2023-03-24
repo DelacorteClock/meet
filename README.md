@@ -4,7 +4,7 @@ The application will allow users to learn more about events in different regions
 
 ## Technology
 
-It is serverless and a progressive web application. It will use react.
+It is serverless and a progressive web application. It will use react. I plan to use serverless functions because they will help make the creation of the app more practical. Specifically they will eliminate the need for making and maintaining a server. This enables management of authorisation for the site to be transferred to AWS to do the work with it being a cloud service provider. The result of this will be generation of a token to allow users to see the event information from Google Calendar.
 
 ## Lesson One Responses
 
