@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang='en-GB'>
+    <head>
+        <meta http-equiv='x-ua-compatible' content='ie=edge' />
+        <meta name='viewport' content='width=device-width, initial-scale=1' />
+        <title>Test Auth Server</title>
+    </head>
+    <body>
+        <style>
+            #container {
+                max-width: 500px;
+            }
+            h4 {
+                margin-top: 25px;
+            }
+        </style>
+        <main id='container'>
+            <h1>OAuth2 Test</h1>
+            <h4>Step 1: Get Auth URL</h4>
+            <p>Click Button Here To Get Auth URL</p>
+            <button id='getCode'>Get OAuth URL</button>
+            <p id='result'></p>
+            <a id='authURL' href='' target='_blank'>Click To Authorise</a>
+            <h4>Step 2: Get Code And Exchange For Access Token</h4>
+            <p>
+                After You Get Redirected To App on GitHub Copy Code From URI
+            </p>
+            <br />
+            <label>Code input
+                <input id='code' type='text' value='' />
+            </label>
+            <button id='getToken'>Get Token</button>
+            <p id='accessToken'></p>
+            <h4>Step 3: Get Calendar Events Using Access Token</h4>
+            <button id='getEvents'>Get Events</button>
+            <p id='events'></p>
+        </main>
+        <script>
+            const codeGetter = document.getElementById('getCode');
+            const resultElement = document.getElementById('result');
+            const resultLink = document.getElementById('authURL');
+            // Replace this with your own endpoint
+            const getAuthURL = 'https://9m9kr14hzl.execute-api.eu-west-3.amazonaws.com/dev/api/get-auth-url';
+            codeGetter.onclick = function () {
+                fetch(getAuthURL).then(function (res) {
+                    return res.json();
+                }).then(function (json) {
+                    const result = JSON.stringify(json);
+                    // we get the value of authUrl
+                    const {authUrl} = JSON.parse(result);
+                    // then add it to the html
+                    resultElement.innerText = result;
+                    resultLink.href = authUrl;
+                });
+            };
+
+            const codeValue = document.getElementById('code');
+            const accessTokenGetter = document.getElementById('getToken');
+            const accessTokenElement = document.getElementById('accessToken');
+            const getToken = 'https://9m9kr14hzl.execute-api.eu-west-3.amazonaws.com/dev/api/token';
+
+            accessTokenGetter.onclick = function () {
+                var code = codeValue.value;
+                if (decodeURIComponent(code) === code) {
+                    code = encodeURIComponent(codeValue.value);
+                }
+                const getTokenRequest = getToken + '/' + code;
+                fetch(getTokenRequest).then(function (res) {
+                    return res.json();
+                }).then(function (json) {
+                    accessTokenElement.innerText = JSON.stringify(json);
+                });
+            };
+
+            const getEvents = document.getElementById('getEvents');
+            const events = document.getElementById('events');
+            const getCalendarEvents = 'https://9m9kr14hzl.execute-api.eu-west-3.amazonaws.com/dev/api/get-events';
+
+            getEvents.onclick = function () {
+                const {access_token} = JSON.parse(accessTokenElement.innerText);
+                const eventRequest = getCalendarEvents + '/' + access_token;
+                fetch(eventRequest).then(function (response) {
+                    return response.json();
+                }).then(function (json) {
+                    events.innerText = JSON.stringify(json, null, 2);
+                });
+            };
+        </script>
+    </body>
+</html>
