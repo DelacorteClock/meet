@@ -23,8 +23,8 @@ describe('<NumberOfEvents /> component', function () {
     });
     test('change of number to non-number does not change quantity state', function () {
         NumberOfEventsWrapper.setState({quantity: '25'});
-        //Change quantity to FakeText in text box
-        NumberOfEventsWrapper.find('.quantity').simulate('change', {target: {value: 'FakeText'}});
+        //Change quantity to VeryFakeText in text box
+        NumberOfEventsWrapper.find('.quantity').simulate('change', {target: {value: 'VeryFakeText'}});
         expect(NumberOfEventsWrapper.state('quantity')).toBe('25');
     });
 });

@@ -1,9 +1,11 @@
 import React from 'react';
-import {shallow} from 'enzyme';
+import {shallow, mount} from 'enzyme';
 import App from '../App';
 import EventList from '../EventList';
 import CitySearch from '../CitySearch';
 import NumberOfEvents from '../NumberOfEvents';
+import {fakeData} from '../fake-data';
+import {extractLocations, getEvents} from '../api';
 
 describe('<App /> component', function () {
     var AppWrapper;
@@ -19,4 +21,46 @@ describe('<App /> component', function () {
     test('render NumberOfEvents', function () {
         expect(AppWrapper.find(NumberOfEvents)).toHaveLength(1);
     });
+});
+
+describe('<App /> integration', function () {
+    test('App passes events state like prop to EventList', function () {
+        const AppWrapper = mount(<App />);
+        const AppEventsState = AppWrapper.state('events');
+        expect(AppEventsState).not.toEqual(undefined);
+        expect(AppWrapper.find(EventList).props().events).toEqual(AppEventsState);
+        AppWrapper.unmount();
+    });
+    test('App passes locations state like prop to CitySearch', function () {
+        const AppWrapper = mount(<App />);
+        const AppLocationsState = AppWrapper.state('locations');
+        expect(AppLocationsState).not.toEqual(undefined);
+        expect(AppWrapper.find(CitySearch).props().locations).toEqual(AppLocationsState);
+        AppWrapper.unmount();
+    });
+    test('get list of events matching city selected', async function () {
+        const AppWrapper = mount(<App />);
+        const CitySearchWrapper = AppWrapper.find(CitySearch);
+        const locations = extractLocations(fakeData);
+        CitySearchWrapper.setState({suggestions: locations});
+        const suggestions = CitySearchWrapper.state('suggestions');
+        const selectedIndex = Math.floor(Math.random() * (suggestions.length));
+        const selectedCity = suggestions[selectedIndex];
+        await CitySearchWrapper.instance().hdlItemClick(selectedCity);
+        const allEvents = await getEvents();
+        const eventsToShew = allEvents.filter(function (event) {
+            return event.location === selectedCity;
+        });
+        expect(AppWrapper.state('events')).toEqual(eventsToShew);
+        AppWrapper.unmount();
+    });
+    test('get list of all events when user selects to See All Cities', async function () {
+        const AppWrapper = mount(<App />);
+        const suggestionItems = AppWrapper.find(CitySearch).find('.suggestions li');
+        await suggestionItems.at(suggestionItems.length - 1).simulate('click');
+        const allEvents = await getEvents();
+        expect(AppWrapper.state('events')).toEqual(allEvents);
+        AppWrapper.unmount();
+    });
+    
 });

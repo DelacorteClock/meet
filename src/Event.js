@@ -21,9 +21,9 @@ class Event extends Component {
     render() {
         const {event} = this.props;
         return (
-            <div>
+            <div className='event'>
                 <h2 className='eventTitle'>{event.summary}</h2>
-                <p className='timeInfo'><span className='dateAndTime'>{event.start.dateTime}</span> (<span className='timeZone'>{event.start.timeZone}</span>) \n <span className='locationInfo'>{event.location}</span></p>
+                <p className='timeInfo'><span className='dateAndTime'>{event.start.dateTime}</span> (<span className='timeZone'>{event.start.timeZone}</span>) in <span className='locationInfo'>{event.location}</span></p>
                 {this.state.exp ? <div className='extraDetails'>
                     <h3 className='extraHead'>More Info</h3>
                     <a className='extraLink' href={event.htmlLink}>View Info On Google Calendar</a>

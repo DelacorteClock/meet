@@ -10,7 +10,7 @@ describe('<CitySearch /> component', function () {
     var locations, CitySearchWrapper;
     beforeAll(function () {
         locations = extractLocations(fakeData); 
-        CitySearchWrapper = shallow(<CitySearch locations={locations} />);
+        CitySearchWrapper = shallow(<CitySearch locations={locations} updateEvents={function () {}} />);
     });
     test('render text box', function () {
         expect(CitySearchWrapper.find('.city')).toHaveLength(1);
@@ -53,5 +53,19 @@ describe('<CitySearch /> component', function () {
         const suggestions = CitySearchWrapper.state('suggestions');
         CitySearchWrapper.find('.suggestions li').at(0).simulate('click');
         expect(CitySearchWrapper.state('query')).toBe(suggestions[0]);
+    });
+    test('selecting CitySearch input reveals suggestion list', function () {
+        CitySearchWrapper.find('.city').simulate('focus');
+        expect(CitySearchWrapper.state('shewSuggestions')).toBe(true);
+        expect(CitySearchWrapper.find('.suggestions').prop('style')).not.toEqual({display: 'none'});
+    });
+    test('selecting suggestion hides suggestion list', function () {
+        CitySearchWrapper.setState({
+            query: 'Du',
+            shewSuggestions: undefined
+        });
+        CitySearchWrapper.find('.suggestions li').at(0).simulate('click');
+        expect(CitySearchWrapper.state('shewSuggestions')).toBe(false);
+        expect(CitySearchWrapper.find('.suggestions').prop('style')).toEqual({display: 'none'});
     });
 });

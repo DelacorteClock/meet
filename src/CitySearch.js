@@ -3,7 +3,8 @@ import React, {Component} from 'react';
 class CitySearch extends Component {
     state = {
         query: '',
-        suggestions: []
+        suggestions: [],
+        shewSuggestions: undefined
     }
     hdlInputChange = (evt) => {
         const value = evt.target.value;
@@ -12,18 +13,19 @@ class CitySearch extends Component {
         });
         this.setState({query: value, suggestions: suggestions});
     }
-    hdlItmClick = (suggestion) => {
-        this.setState({query: suggestion});
+    hdlItemClick = (suggestion) => {
+        this.setState({query: suggestion, shewSuggestions: false});
+        this.props.updateEvents(suggestion);
     }
     render() {
         return (
             <div className='CitySearch'>
-                <input type='text' className='city' value={this.state.query} onChange={this.hdlInputChange} />
-                <ul className='suggestions'>
+                <input type='text' className='city' placeholder='Search For City' value={this.state.query} onChange={this.hdlInputChange} onFocus={() => {this.setState({shewSuggestions: true});}} />
+                <ul className='suggestions' style={this.state.shewSuggestions ? {} : {display: 'none'}}>
                     {this.state.suggestions.map((suggestion) => (
-                        <li key={suggestion} onClick={() => this.hdlItmClick(suggestion)}>{suggestion}</li>
+                        <li key={suggestion} onClick={() => this.hdlItemClick(suggestion)}>{suggestion}</li>
                     ))}
-                    <li key='all'>See All Cities</li>
+                    <li key='all' onClick={() => this.hdlItemClick('all')}><b>See All Cities</b></li>
                 </ul>
             </div>
         );
