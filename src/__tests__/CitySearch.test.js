@@ -54,6 +54,14 @@ describe('<CitySearch /> component', function () {
         CitySearchWrapper.find('.suggestions li').at(0).simulate('click');
         expect(CitySearchWrapper.state('query')).toBe(suggestions[0]);
     });
+    test('selecting all changes query to all', function () {
+        CitySearchWrapper.setState({query: 'Du'});
+        const suggestions = CitySearchWrapper.state('suggestions');
+        CitySearchWrapper.find('.suggestions li').at(0).simulate('click');
+        expect(CitySearchWrapper.state('query')).toBe(suggestions[0]);
+        CitySearchWrapper.find('.allLine').simulate('click');
+        expect(CitySearchWrapper.state('query')).toBe('all');
+    });
     test('selecting CitySearch input reveals suggestion list', function () {
         CitySearchWrapper.find('.city').simulate('focus');
         expect(CitySearchWrapper.state('shewSuggestions')).toBe(true);

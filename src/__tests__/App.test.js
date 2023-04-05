@@ -54,13 +54,20 @@ describe('<App /> integration', function () {
         expect(AppWrapper.state('events')).toEqual(eventsToShew);
         AppWrapper.unmount();
     });
-    test('get list of all events when user selects to See All Cities', async function () {
+    test('change in NumberOfEvents updates quantity state', async function () {
         const AppWrapper = mount(<App />);
-        const suggestionItems = AppWrapper.find(CitySearch).find('.suggestions li');
-        await suggestionItems.at(suggestionItems.length - 1).simulate('click');
-        const allEvents = await getEvents();
-        expect(AppWrapper.state('events')).toEqual(allEvents);
+        const NumWrapper = AppWrapper.find(NumberOfEvents);
+        await NumWrapper.find('.quantity').simulate('change', {target: {value: '5'}});
+        expect(AppWrapper.state('quantity')).toBe('5');
         AppWrapper.unmount();
     });
-    
+    test('change in NumberOfEvents updates state representing events displayed', async function () {
+        const AppWrapper = mount(<App />);
+        const NumWrapper = AppWrapper.find(NumberOfEvents);
+        const EventListWrapper = AppWrapper.find(EventList);
+        await NumWrapper.instance().hdlInputChange({target: {value: '3'}});
+        await getEvents();
+        expect(AppWrapper.state('events')).toEqual([fakeData[0],fakeData[1],fakeData[2]]);
+        AppWrapper.unmount();
+    });
 });

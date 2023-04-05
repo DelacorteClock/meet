@@ -2,12 +2,13 @@ import React, {Component} from 'react';
 
 class NumberOfEvents extends Component {
     state = {
-        quantity: '32'
+        quantity: '25'
     }
     hdlInputChange = (evt) => {
         const value = evt.target.value;
         if (!isNaN(parseInt(value))) {
-            this.setState({quantity: value});   
+            this.setState({quantity: value});
+            this.props.updateEvents('BLANK', value);
         }
     }
     render() {

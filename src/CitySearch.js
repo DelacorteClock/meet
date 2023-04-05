@@ -15,7 +15,7 @@ class CitySearch extends Component {
     }
     hdlItemClick = (suggestion) => {
         this.setState({query: suggestion, shewSuggestions: false});
-        this.props.updateEvents(suggestion);
+        this.props.updateEvents(suggestion, 'BLANK');
     }
     render() {
         return (
@@ -25,7 +25,7 @@ class CitySearch extends Component {
                     {this.state.suggestions.map((suggestion) => (
                         <li key={suggestion} onClick={() => this.hdlItemClick(suggestion)}>{suggestion}</li>
                     ))}
-                    <li key='all' onClick={() => this.hdlItemClick('all')}><b>See All Cities</b></li>
+                    <li key='all' className='allLine' onClick={() => this.hdlItemClick('all')}><b>See All Cities</b></li>
                 </ul>
             </div>
         );
