@@ -19,13 +19,11 @@ class App extends Component {
             getEvents().then((events) => {
                 const revealableEvents = (locationChoice === 'all') ? events.slice(0, parseInt(eventQuantity)) : events.filter(function (event) {return event.location === locationChoice;}).slice(0, parseInt(eventQuantity));
                 this.setState({events: revealableEvents, quantity: eventQuantity});
-                console.log(this.state.quantity, this.state.locationChoice);
             });
         } else if (location && eventQuantity === 'BLANK') {
             getEvents().then((events) => {
                 const revealableEvents = (location === 'all') ? events.slice(0, parseInt(quantity)) : events.filter(function (event) {return event.location === location;}).slice(0, parseInt(quantity));
                 this.setState({events: revealableEvents, locationChoice: location});
-                console.log(this.state.quantity, this.state.locationChoice);
             });
         }
     }
