@@ -1,16 +1,18 @@
 {
   "files": {
-    "main.css": "/meet/static/css/main.a1a61b21.css",
-    "main.js": "/meet/static/js/main.95551d32.js",
+    "main.css": "/meet/static/css/main.643dca0a.css",
+    "main.js": "/meet/static/js/main.732d09bf.js",
     "static/js/787.4b564826.chunk.js": "/meet/static/js/787.4b564826.chunk.js",
     "service-worker.js": "/meet/service-worker.js",
+    "static/media/ParisineOfficeWeb-Bold.woff": "/meet/static/media/ParisineOfficeWeb-Bold.4ffce98c319d807507a1.woff",
+    "static/media/ParisineOfficeWeb-Regular.woff": "/meet/static/media/ParisineOfficeWeb-Regular.0dbb9ef0ca2d81abf436.woff",
     "index.html": "/meet/index.html",
-    "main.a1a61b21.css.map": "/meet/static/css/main.a1a61b21.css.map",
-    "main.95551d32.js.map": "/meet/static/js/main.95551d32.js.map",
+    "main.643dca0a.css.map": "/meet/static/css/main.643dca0a.css.map",
+    "main.732d09bf.js.map": "/meet/static/js/main.732d09bf.js.map",
     "787.4b564826.chunk.js.map": "/meet/static/js/787.4b564826.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.a1a61b21.css",
-    "static/js/main.95551d32.js"
+    "static/css/main.643dca0a.css",
+    "static/js/main.732d09bf.js"
   ]
 }
