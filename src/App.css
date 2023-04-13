@@ -52,8 +52,8 @@ input[type='number'] {
 .CitySearch {
     display: flex;
     flex-direction: column;
-    flex-basis: 300px;
-    max-width: 300px;
+    flex-basis: 400px;
+    max-width: 400px;
     margin: auto;
     position: relative;
 }
@@ -152,9 +152,8 @@ a:active {
     font-family: sans-serif;
 }
 
-.Alert {
-    position: fixed;
-    top: 20px;
+.Alert, .NumAlert {
+    font-size: 13px !important;
 }
 
 .data-vis-wrapper {

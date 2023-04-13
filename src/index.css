@@ -1,13 +1,22 @@
+@font-face {
+  font-family: StandardSpecial;
+  src: url('./graphics/ParisineOfficeWeb-Regular.woff');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: StandardSpecial;
+  src: url('./graphics/ParisineOfficeWeb-Bold.woff');
+  font-weight: bold;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: StandardSpecial;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+button, code, input {
+    font-family: StandardSpecial;
 }

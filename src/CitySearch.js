@@ -1,20 +1,26 @@
 import React, {Component} from 'react';
+import {InfoAlert} from './Alert';
 
 class CitySearch extends Component {
     state = {
         query: '',
         suggestions: [],
-        shewSuggestions: undefined
+        shewSuggestions: undefined,
+        infoText: ''
     }
     hdlInputChange = (evt) => {
         const value = evt.target.value;
         const suggestions = this.props.locations.filter(function (location) {
             return location.toUpperCase().indexOf(value.toUpperCase()) > -1;
         });
-        this.setState({query: value, suggestions: suggestions});
+        if (suggestions.length === 0) {
+            this.setState({query: value, suggestions: [], infoText: 'City Not Found: Check Spelling Or Look For Another One'});
+        } else {
+            this.setState({query: value, suggestions: suggestions, infoText: ''});
+        }
     }
     hdlItemClick = (suggestion) => {
-        this.setState({query: suggestion, shewSuggestions: false});
+        this.setState({query: suggestion, shewSuggestions: false, infoText: ''});
         this.props.updateEvents(suggestion, 'BLANK');
     }
     render() {
@@ -27,6 +33,7 @@ class CitySearch extends Component {
                     ))}
                     <li key='all' className='allLine' onClick={() => this.hdlItemClick('all')}><b>See All Cities</b></li>
                 </ul>
+                <InfoAlert text={this.state.infoText} />
             </div>
         );
     }
