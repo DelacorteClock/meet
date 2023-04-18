@@ -50,7 +50,7 @@ class App extends Component {
     componentWillUnmount() {
         this.mounted = false;
     }
-    this.onlineStatusGenerate;
+    onlineStatusGenerate;
     render() {
         window.addEventListener('online', this.onlineStatusGenerate);
         window.addEventListener('offline', this.onlineStatusGenerate);
