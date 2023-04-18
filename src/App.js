@@ -50,16 +50,8 @@ class App extends Component {
     componentWillUnmount() {
         this.mounted = false;
     }
+    this.onlineStatusGenerate;
     render() {
-        if (navigator.onLine) {
-            this.setState({online: true});
-            console.log('ONLINE', new Date());
-            return;
-        } else {
-            this.setState({online: false});
-            console.log('OFFLINE', new Date());
-            return;
-        }
         window.addEventListener('online', this.onlineStatusGenerate);
         window.addEventListener('offline', this.onlineStatusGenerate);
         return (
