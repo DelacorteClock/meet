@@ -10,7 +10,7 @@ class Alert extends Component {
         return {color: this.colour};
     }
     render() {
-        return <div className='Alert'><p style={this.getStyle()}>{this.separated ? (this.props.text ? <br /> : <div></div>) : (<div></div>)}{this.separated ? (this.props.text ? <br /> : <div></div>) : (<div></div>)}{this.props.text}</p></div>;
+        return <div className='Alert'><p style={this.getStyle()}>{this.separated ? (this.props.text ? <br /> : <span></span>) : (<span></span>)}{this.separated ? (this.props.text ? <br /> : <span></span>) : (<span></span>)}{this.props.text}</p></div>;
     }
 }
 

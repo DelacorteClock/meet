@@ -13,18 +13,22 @@ class App extends Component {
         locations: [],
         locationChoice: 'all',
         quantity: '25',
-        online: true
+        online: navigator.onLine
     }
     updateEvents = (location, eventQuantity) => {
         const {locationChoice, quantity} = this.state;
         if (location === 'BLANK' && eventQuantity) {
             getEvents().then((events) => {
-                const revealableEvents = (locationChoice === 'all') ? events.slice(0, parseInt(eventQuantity)) : events.filter(function (event) {return event.location === locationChoice;}).slice(0, parseInt(eventQuantity));
+                const revealableEvents = (locationChoice === 'all') ? events.slice(0, parseInt(eventQuantity)) : events.filter(function (event) {
+                    return event.location === locationChoice;
+                }).slice(0, parseInt(eventQuantity));
                 this.setState({events: revealableEvents, quantity: eventQuantity});
             });
         } else if (location && eventQuantity === 'BLANK') {
             getEvents().then((events) => {
-                const revealableEvents = (location === 'all') ? events.slice(0, parseInt(quantity)) : events.filter(function (event) {return event.location === location;}).slice(0, parseInt(quantity));
+                const revealableEvents = (location === 'all') ? events.slice(0, parseInt(quantity)) : events.filter(function (event) {
+                    return event.location === location;
+                }).slice(0, parseInt(quantity));
                 this.setState({events: revealableEvents, locationChoice: location});
             });
         }
@@ -54,14 +58,14 @@ class App extends Component {
         window.addEventListener('online', this.onlineStatusGenerate);
         window.addEventListener('offline', this.onlineStatusGenerate);
         return (
-            <div className='App'>
-                <h1>EdgyEvents by TheLeathers</h1>
-                <CitySearch locations={this.state.locations} updateEvents={this.updateEvents} />
-                <NumberOfEvents updateEvents={this.updateEvents} />
-                <WarningAlert text={this.state.online ? '' : 'No Internet: App Might Not Contain Current Event List'} />
-                <EventList events={this.state.events} />
-            </div>
-        );
+                <div className='App'>
+                    <h1>EdgyEvents by TheLeathers</h1>
+                    <CitySearch locations={this.state.locations} updateEvents={this.updateEvents} />
+                    <NumberOfEvents updateEvents={this.updateEvents} />
+                    <WarningAlert text={this.state.online ? '' : 'No Internet: App Might Not Contain Current Event List'} />
+                    <EventList events={this.state.events} />
+                </div>
+                );
     }
 }
 
