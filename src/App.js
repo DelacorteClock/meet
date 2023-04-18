@@ -13,7 +13,7 @@ class App extends Component {
         locations: [],
         locationChoice: 'all',
         quantity: '25',
-        online: true
+        online: undefined
     }
     updateEvents = (location, eventQuantity) => {
         const {locationChoice, quantity} = this.state;
@@ -51,6 +51,13 @@ class App extends Component {
         this.mounted = false;
     }
     render() {
+        if (navigator.onLine) {
+            this.setState({online: true});
+            console.log('ONLINE', new Date());
+        } else {
+            this.setState({online: false});
+            console.log('OFFLINE', new Date());
+        }
         window.addEventListener('online', this.onlineStatusGenerate);
         window.addEventListener('offline', this.onlineStatusGenerate);
         return (
