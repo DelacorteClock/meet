@@ -13,7 +13,7 @@ class App extends Component {
         locations: [],
         locationChoice: 'all',
         quantity: '25',
-        online: undefined
+        online: true
     }
     updateEvents = (location, eventQuantity) => {
         const {locationChoice, quantity} = this.state;
@@ -50,7 +50,6 @@ class App extends Component {
     componentWillUnmount() {
         this.mounted = false;
     }
-    onlineStatusGenerate;
     render() {
         window.addEventListener('online', this.onlineStatusGenerate);
         window.addEventListener('offline', this.onlineStatusGenerate);
@@ -59,7 +58,7 @@ class App extends Component {
                 <h1>EdgyEvents by TheLeathers</h1>
                 <CitySearch locations={this.state.locations} updateEvents={this.updateEvents} />
                 <NumberOfEvents updateEvents={this.updateEvents} />
-                <WarningAlert text={this.state.online ? '' : 'No Internet: App Might Not Contain Current Event List'} />
+                <WarningAlert text={navigator.onLine ? '' : 'No Internet: App Might Not Contain Current Event List'} />
                 <EventList events={this.state.events} />
             </div>
         );
