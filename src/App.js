@@ -12,8 +12,7 @@ class App extends Component {
         events: [],
         locations: [],
         locationChoice: 'all',
-        quantity: '25',
-        online: true
+        quantity: '25'
     }
     updateEvents = (location, eventQuantity) => {
         const {locationChoice, quantity} = this.state;
@@ -29,15 +28,6 @@ class App extends Component {
             });
         }
     }
-    onlineStatusGenerate = () => {
-        if (navigator.onLine) {
-            this.setState({online: true});
-            console.log('ONLINE', new Date());
-        } else {
-            this.setState({online: false});
-            console.log('OFFLINE', new Date());
-        }
-    }
     componentDidMount() {
         this.mounted = true;
         getEvents().then((events) => {
@@ -51,8 +41,6 @@ class App extends Component {
         this.mounted = false;
     }
     render() {
-        window.addEventListener('online', this.onlineStatusGenerate);
-        window.addEventListener('offline', this.onlineStatusGenerate);
         return (
             <div className='App'>
                 <h1>EdgyEvents by TheLeathers</h1>
