@@ -17,7 +17,7 @@ const removeQuery = () => {
         window.history.pushState('', '', newurl);
     }
 };
-const checkToken = async function (accessToken) {
+export const checkToken = async function (accessToken) {
     const result = await fetch(`https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=${accessToken}`).then(function (res) {
         return res.json;
     }).catch(function (error) {

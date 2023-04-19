@@ -4,7 +4,8 @@ import './App.css';
 import EventList from './EventList';
 import CitySearch from './CitySearch';
 import NumberOfEvents from './NumberOfEvents';
-import {getEvents, extractLocations} from './api';
+import StartScreen from './StartScreen';
+import {getEvents, extractLocations, checkToken, getAccessToken} from './api';
 import {WarningAlert} from './Alert';
 
 class App extends Component {
@@ -13,7 +14,8 @@ class App extends Component {
         locations: [],
         locationChoice: 'all',
         quantity: '25',
-        online: navigator.onLine
+        online: navigator.onLine,
+        revealStartScreen: undefined
     }
     updateEvents = (location, eventQuantity) => {
         const {locationChoice, quantity} = this.state;
@@ -42,19 +44,29 @@ class App extends Component {
             console.log('OFFLINE', new Date());
         }
     }
-    componentDidMount() {
+    async componentDidMount() {
         this.mounted = true;
-        getEvents().then((events) => {
-            if (this.mounted) {
-                var someEvents = events.slice(0, parseInt(this.state.quantity));
-                this.setState({events: someEvents, locations: extractLocations(events)});
-            }
-        });
+        const accessToken = localStorage.getItem('access_token');
+        const isTokenValid = (await checkToken(accessToken)).error ? false : true;
+        const searchParams = new URLSearchParams(window.location.search);
+        const code = searchParams.get('code');
+        this.setState({revealStartScreen: !(code || isTokenValid)});
+        if ((code || isTokenValid) && this.mounted) {
+            getEvents().then((events) => {
+                if (this.mounted) {
+                    var someEvents = events.slice(0, parseInt(this.state.quantity));
+                    this.setState({events: someEvents, locations: extractLocations(events)});
+                }
+            });
+        }
     }
     componentWillUnmount() {
         this.mounted = false;
     }
     render() {
+        if (this.state.revealStartScreen === undefined) {
+            return <div className='App' />;
+        } 
         window.addEventListener('online', this.onlineStatusGenerate);
         window.addEventListener('offline', this.onlineStatusGenerate);
         return (
@@ -64,6 +76,7 @@ class App extends Component {
                     <NumberOfEvents updateEvents={this.updateEvents} />
                     <WarningAlert text={this.state.online ? '' : 'No Internet: App Might Not Contain Current Event List'} />
                     <EventList events={this.state.events} />
+                    <StartScreen revealStartScreen={this.state.revealStartScreen} getAccessToken={function () {getAccessToken();}} />
                 </div>
                 );
     }
