@@ -1,18 +1,18 @@
 {
   "files": {
     "main.css": "/meet/static/css/main.6eabce91.css",
-    "main.js": "/meet/static/js/main.35140898.js",
+    "main.js": "/meet/static/js/main.f1f712b6.js",
     "static/js/787.4b564826.chunk.js": "/meet/static/js/787.4b564826.chunk.js",
     "service-worker.js": "/meet/service-worker.js",
     "static/media/ParisineOfficeWeb-Bold.woff": "/meet/static/media/ParisineOfficeWeb-Bold.4ffce98c319d807507a1.woff",
     "static/media/ParisineOfficeWeb-Regular.woff": "/meet/static/media/ParisineOfficeWeb-Regular.0dbb9ef0ca2d81abf436.woff",
     "index.html": "/meet/index.html",
     "main.6eabce91.css.map": "/meet/static/css/main.6eabce91.css.map",
-    "main.35140898.js.map": "/meet/static/js/main.35140898.js.map",
+    "main.f1f712b6.js.map": "/meet/static/js/main.f1f712b6.js.map",
     "787.4b564826.chunk.js.map": "/meet/static/js/787.4b564826.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.6eabce91.css",
-    "static/js/main.35140898.js"
+    "static/js/main.f1f712b6.js"
   ]
 }
