@@ -19,6 +19,9 @@ const removeQuery = () => {
 };
 export const checkToken = async function (accessToken) {
     const result = await fetch(`https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=${accessToken}`).then(function (res) {
+        if (res.status === 400) {
+            return 'BAD';
+        }
         return res.json;
     }).catch(function (error) {
         return error.json;

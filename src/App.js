@@ -47,10 +47,10 @@ class App extends Component {
     async componentDidMount() {
         this.mounted = true;
         const accessToken = localStorage.getItem('access_token');
-        const isTokenValid = (await checkToken(accessToken)).error ? false : true;
+        const isTokenValid = (await checkToken(accessToken) === 'BAD') ? false : ((await checkToken(accessToken)).error ? false : true);
         const searchParams = new URLSearchParams(window.location.search);
         const code = searchParams.get('code');
-        if (code) {console.log('CODE', code, isTokenValid);} else {console.log('NO CODE', isTokenValid);};
+        if (code) {console.log('CODE', code, isTokenValid, localStorage.getItem('access_token'), checkToken(accessToken));} else {console.log('NO CODE', isTokenValid, localStorage.getItem('access_token'), checkToken(accessToken));};
         console.log({revealStartScreen: !(code || isTokenValid)});
         this.setState({revealStartScreen: !(code || isTokenValid)});
         if ((code || isTokenValid) && this.mounted) {
@@ -78,7 +78,7 @@ class App extends Component {
                     <NumberOfEvents updateEvents={this.updateEvents} />
                     <WarningAlert text={this.state.online ? '' : 'No Internet: App Might Not Contain Current Event List'} />
                     <EventList events={this.state.events} />
-                    <StartScreen revealStartScreen={this.state.revealStartScreen} getAccessToken={() => {getAccessToken()}} />
+                    <StartScreen revealStartScreen={this.state.revealStartScreen} getAccessToken={() => {getAccessToken();}} />
                 </div>
                 );
     }
