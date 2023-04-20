@@ -10,11 +10,9 @@ function StartScreen(props) {
                             before you can access the site...
                         </p>
                         <div align='center'>
-                            <div>
-                                <button onClick={function () {props.getAccessToken();}} class='btn-text'>
-                                    <b>Google Login Page</b>
-                                </button>
-                            </div>
+                            <button onClick={() => {props.getAccessToken()}} className='toggler'>
+                                <b>GOOGLE LOGIN PAGE</b>
+                            </button>
                         </div>
                         <a href='https://delacorteclock.github.io/meet/edgy.html'>
                             The Edgy Guarantee: Privacy Info

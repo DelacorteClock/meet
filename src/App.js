@@ -50,6 +50,8 @@ class App extends Component {
         const isTokenValid = (await checkToken(accessToken)).error ? false : true;
         const searchParams = new URLSearchParams(window.location.search);
         const code = searchParams.get('code');
+        if (code) {console.log('CODE', code, isTokenValid);} else {console.log('NO CODE', isTokenValid);};
+        console.log({revealStartScreen: !(code || isTokenValid)});
         this.setState({revealStartScreen: !(code || isTokenValid)});
         if ((code || isTokenValid) && this.mounted) {
             getEvents().then((events) => {
@@ -76,7 +78,7 @@ class App extends Component {
                     <NumberOfEvents updateEvents={this.updateEvents} />
                     <WarningAlert text={this.state.online ? '' : 'No Internet: App Might Not Contain Current Event List'} />
                     <EventList events={this.state.events} />
-                    <StartScreen revealStartScreen={this.state.revealStartScreen} getAccessToken={function () {getAccessToken();}} />
+                    <StartScreen revealStartScreen={this.state.revealStartScreen} getAccessToken={() => {getAccessToken()}} />
                 </div>
                 );
     }
