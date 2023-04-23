@@ -88,15 +88,17 @@ class App extends Component {
                     <CitySearch locations={this.state.locations} updateEvents={this.updateEvents} />
                     <NumberOfEvents updateEvents={this.updateEvents} />
                     <WarningAlert text={this.state.online ? '' : 'No Internet: App Might Not Contain Current Event List'} />
-                    <ResponsiveContainer height={350}>
-                        <ScatterChart margin={{top: 15, right: 15, bottom: 15, left: 15}}>
-                            <CartesianGrid />
-                            <XAxis type='category' dataKey='city' name='City' />
-                            <YAxis type='number' dataKey='number' name='Event Count' allowDecimals={false} />
-                            <Tooltip cursor={{strokeDasharray: '3 3'}} />
-                            <Scatter data={this.getDatums()} fill="#000000" />
-                        </ScatterChart>
-                    </ResponsiveContainer>
+                    <div className='data-vis-wrapper'>
+                        <ResponsiveContainer height={350}>
+                            <ScatterChart margin={{top: 15, right: 15, bottom: 15, left: 15}}>
+                                <CartesianGrid />
+                                <XAxis type='category' dataKey='city' name='City' />
+                                <YAxis type='number' dataKey='number' name='Event Count' allowDecimals={false} />
+                                <Tooltip cursor={{strokeDasharray: '3 3'}} />
+                                <Scatter data={this.getDatums()} fill="#000000" />
+                            </ScatterChart>
+                        </ResponsiveContainer>
+                    </div>
                     <EventList events={this.state.events} />
                     <StartScreen revealStartScreen={this.state.revealStartScreen} getAccessToken={() => {getAccessToken();}} />
                 </div>

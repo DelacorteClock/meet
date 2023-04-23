@@ -8,6 +8,10 @@ h2, h3 {
     margin-block-end: 0.25em;
 }
 
+.data-vis-wrapper {
+	width: 100vw;
+  }
+
 .App {
     text-align: center;
     padding: 2% 5%;
