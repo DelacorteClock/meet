@@ -5,6 +5,7 @@ import EventList from './EventList';
 import CitySearch from './CitySearch';
 import NumberOfEvents from './NumberOfEvents';
 import StartScreen from './StartScreen';
+import EventStyle from './EventStyle'
 import {getEvents, extractLocations, checkToken, getAccessToken} from './api';
 import {WarningAlert} from './Alert';
 import {ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer} from 'recharts';
@@ -89,6 +90,7 @@ class App extends Component {
                     <NumberOfEvents updateEvents={this.updateEvents} />
                     <WarningAlert text={this.state.online ? '' : 'No Internet: App Might Not Contain Current Event List'} />
                     <div className='data-vis-wrapper'>
+                        <EventStyle events={this.state.events} />
                         <ResponsiveContainer height={350}>
                             <ScatterChart margin={{top: 15, right: 15, bottom: 15, left: 15}}>
                                 <CartesianGrid />
