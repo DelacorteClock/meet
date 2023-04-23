@@ -8,14 +8,14 @@ const EventStyle = function ({events}) {
         {name: 'C', value: 300},
         {name: 'D', value: 200}
     ];
-    getDatums = function () {
+    /**getDatums = function () {
         const styles = ['React', 'JavaScript', 'Node', 'jQuery', 'AngularJS'];
         const datums = styles.map(function (style) {
             const value = events.filter(function (event) {return event.summary.split(' ').includes(style);}).length;
             return {name: style, value: value};
         });
         return datums;
-    };
+    };**/
     return (
         <ResponsiveContainer height={350}>
             <PieChart width={300} height={350}>
