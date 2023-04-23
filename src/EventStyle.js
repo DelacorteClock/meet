@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {PieChart, Pie, Cell, ResponsiveContainer} from 'recharts';
 
-const EventGenre = function ({events}) {
+const EventStyle = function ({events}) {
     const datums = [
         {name: 'A', value: 400},
         {name: 'B', value: 300},
@@ -24,3 +24,5 @@ const EventGenre = function ({events}) {
         </ResponsiveContainer>
     );
 };
+
+export default EventStyle;
