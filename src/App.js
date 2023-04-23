@@ -7,6 +7,7 @@ import NumberOfEvents from './NumberOfEvents';
 import StartScreen from './StartScreen';
 import {getEvents, extractLocations, checkToken, getAccessToken} from './api';
 import {WarningAlert} from './Alert';
+import {ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer} from 'recharts';
 
 class App extends Component {
     state = {
@@ -44,6 +45,16 @@ class App extends Component {
             console.log('OFFLINE', new Date());
         }
     }
+    getDatums = function () {
+        const {locations, events} = this.state;
+        const datums = locations.map(function (location) {
+            const number = events.filter(function (event) {return event.location === location;}).length;
+            const city = location.split(', ').shift();
+            console.log({city: city, number: number});
+            return {city: city, number: number};
+        });
+        return datums;
+    }
     async componentDidMount() {
         this.mounted = true;
         const accessToken = localStorage.getItem('access_token');
@@ -51,7 +62,7 @@ class App extends Component {
         const searchParams = new URLSearchParams(window.location.search);
         const code = searchParams.get('code');
         if (code) {console.log('CODE', code, isTokenValid, localStorage.getItem('access_token'), checkToken(accessToken));} else {console.log('NO CODE', isTokenValid, localStorage.getItem('access_token'), checkToken(accessToken));};
-        console.log({revealStartScreen: !(code || isTokenValid)});
+        console.log(this.getDatums());
         this.setState({revealStartScreen: !(code || isTokenValid)});
         if ((code || isTokenValid) && this.mounted) {
             getEvents().then((events) => {
@@ -77,6 +88,15 @@ class App extends Component {
                     <CitySearch locations={this.state.locations} updateEvents={this.updateEvents} />
                     <NumberOfEvents updateEvents={this.updateEvents} />
                     <WarningAlert text={this.state.online ? '' : 'No Internet: App Might Not Contain Current Event List'} />
+                    <ResponsiveContainer height={350}>
+                        <ScatterChart margin={{top: 15, right: 15, bottom: 15, left: 15}}>
+                            <CartesianGrid />
+                            <XAxis type='category' dataKey='city' name='City' />
+                            <YAxis type='number' dataKey='number' name='Event Count' allowDecimals={false} />
+                            <Tooltip cursor={{strokeDasharray: '3 3'}} />
+                            <Scatter data={this.getDatums()} fill="#000000" />
+                        </ScatterChart>
+                    </ResponsiveContainer>
                     <EventList events={this.state.events} />
                     <StartScreen revealStartScreen={this.state.revealStartScreen} getAccessToken={() => {getAccessToken();}} />
                 </div>
