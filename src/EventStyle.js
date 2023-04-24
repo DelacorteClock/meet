@@ -9,6 +9,7 @@ const EventStyle = function ({events}) {
             const value = events.filter(function (event) {return event.summary.split(' ').includes(style);}).length;
             return {name: style, value: value};
         });
+        console.log(keyDatums);
         return keyDatums;
     };
     useEffect(() => {
@@ -16,8 +17,8 @@ const EventStyle = function ({events}) {
     }, [events]);
     return (
         <ResponsiveContainer height={350}>
-            <PieChart width={300} height={350}>
-                <Pie data={datums} cx={200} cy={200} labelLine={false} outerRadius={80} fill='#000000' dataKey='value' label={function ({name, percent}) {return `${name} ${(percent * 100).toFixed(0)}%`;}} ></Pie>
+            <PieChart>
+                <Pie data={getDatums()} cx={200} cy={200} labelLine={false} outerRadius={80} fill='#000000' dataKey='value' label={function ({name, percent}) {return `${name} ${(percent * 100).toFixed(0)}%`;}} ></Pie>
             </PieChart>
         </ResponsiveContainer>
     );

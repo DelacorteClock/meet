@@ -51,7 +51,6 @@ class App extends Component {
         const datums = locations.map(function (location) {
             const number = events.filter(function (event) {return event.location === location;}).length;
             const city = location.split(', ').shift();
-            console.log({city: city, number: number});
             return {city: city, number: number};
         });
         return datums;
@@ -63,7 +62,6 @@ class App extends Component {
         const searchParams = new URLSearchParams(window.location.search);
         const code = searchParams.get('code');
         if (code) {console.log('CODE', code, isTokenValid, localStorage.getItem('access_token'), checkToken(accessToken));} else {console.log('NO CODE', isTokenValid, localStorage.getItem('access_token'), checkToken(accessToken));};
-        console.log(this.getDatums());
         this.setState({revealStartScreen: !(code || isTokenValid)});
         if ((code || isTokenValid) && this.mounted) {
             getEvents().then((events) => {
