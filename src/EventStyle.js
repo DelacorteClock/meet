@@ -3,7 +3,7 @@ import {PieChart, Pie, Cell, ResponsiveContainer} from 'recharts';
 
 const EventStyle = function ({events}) {
     const [datums, setDatums] = useState([]);
-    getDatums = function () {
+    const getDatums = function () {
         const styles = ['React', 'JavaScript', 'Node', 'jQuery', 'AngularJS'];
         const datums = styles.map(function (style) {
             const value = events.filter(function (event) {return event.summary.split(' ').includes(style);}).length;
